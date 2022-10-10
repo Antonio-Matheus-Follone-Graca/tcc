@@ -1,0 +1,59 @@
+{% extends 'partials/base.html' %}
+{% block title %} Grupos  {% endblock %}
+
+{% block content%}
+    {% include 'partials/menu.html' %}
+        <h1> Suas tarefas </h1>
+        {% if tarefas %}
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th scope="col">id tarefa </th>
+                      <th scope="col">titulo da tarefa  </th>
+                      <th scope="col"> corpo </th>
+                      <th scope="col">data de inicio  </th>
+                      <th scope="col">data máxima para concluir  </th>
+                      <th scope="col">criado em   </th>
+                      <th scope="col">status  </th>
+                      <th scope="col">grupo  </th>
+                      <th scope="col">Apagar   </th>
+                      <th scope="col">editar  </th>
+                      <th scope="col">Concluir tarefa  </th>
+                   
+                   
+
+                    
+                    
+                     
+                     
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for valores_grupos in tarefas %}
+                        <tr>
+                            <td> {{valores_grupos.id}} </td>
+                            <td> {{valores_grupos.title}} </td>
+                            <td> {{valores_grupos.body}} </td>
+                            <td> {{valores_grupos.date_start}} </td>
+                            <td> {{valores_grupos.date_completion}} </td>
+                            <td> {{valores_grupos.date}} </td>
+                            <td> {{valores_grupos.status}} </td>
+                            <td>
+                                {% if valores_grupos.fk_grupo == None%}
+                                -
+                               {% else %}
+                                 {{valores_grupos.fk_grupo.title}}
+                               {% endif %}  
+
+
+                            </td>
+                            <td> <a href="{% url 'deletar_tarefa' valores_grupos.id %}" title="{{valores_grupos.id}}"> Apagar  </a> </td>
+                            <td> <a href="{% url 'editar_tarefa' valores_grupos.id %}" title="{{valores_grupos.id}}"> Editar  </a> </td>
+                            <td> <a href="#" title="{{valores_grupos.id}}"> Concluir tarefa  </a> </td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+            </table>
+        {% endif %}
+{% endblock %}
